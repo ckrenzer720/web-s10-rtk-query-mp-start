@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const quotesApi = createApi({
-  reducerAPth: "quotesApi",
+  reducerPath: "quotesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9009/api/" }),
   tagTypes: ["Quotes"],
   endpoints: (build) => ({

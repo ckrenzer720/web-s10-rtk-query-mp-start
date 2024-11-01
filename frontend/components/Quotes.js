@@ -8,15 +8,24 @@ import {
 } from "../state/quotesApi";
 
 export default function Quotes() {
-  const { data: quotes } = useGetQuotesQuery();
-  const [toggleFake] = useToggleFakeMutation();
-  const [deleteQuote] = useDeleteQuoteMutation();
+  const {
+    data: quotes,
+    isLoading: gettingQuotes,
+    isFetching: refreshingQuotes,
+  } = useGetQuotesQuery();
+  const [toggleFake, { isLoading: togglingQuote }] = useToggleFakeMutation();
+  const [deleteQuote, { isLoading: deletingQuote }] = useDeleteQuoteMutation();
   const displayAllQuotes = useSelector((st) => st.quotesState.displayAllQuotes);
   const highlightedQuote = useSelector((st) => st.quotesState.highlightedQuote);
   const dispatch = useDispatch();
   return (
     <div id="quotes">
-      <h3>Quotes</h3>
+      <h3>
+        Quotes
+        {deletingQuote && " in deletion..."}
+        {togglingQuote && " being toggled..."}
+        {(gettingQuotes || refreshingQuotes) && " loading..."}
+      </h3>
       <div>
         {quotes
           ?.filter((qt) => {
